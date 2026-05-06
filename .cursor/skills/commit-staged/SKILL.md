@@ -37,10 +37,15 @@ disable-model-invocation: true
    - `type` 优先：`feat`、`fix`、`refactor`、`docs`、`test`、`chore`
    - `subject` 使用现在时、简洁、突出“为什么”
 5. 执行提交（仅提交 staged）：
-   - 使用 HEREDOC 传入消息，避免转义错误。
+   - **优先使用跨 shell 方案**：将提交信息写入临时文件，再执行 `git commit -F <temp-file>`，提交后删除临时文件。
+   - 若必须内联消息：
+     - Bash/Zsh：可使用 HEREDOC；
+     - PowerShell：使用 here-string（`@'...'@`）；
+     - 禁止在 PowerShell 中直接套用 Bash HEREDOC 语法。
 6. 提交后验证：
    - `git status --short`
    - 输出新 commit 摘要：`git log -1 --oneline`
+   - 若存在 hooks（如 `lint-staged`）自动改写文件，确认最终 commit 仍仅包含预期 staged 范围。
 
 ## 提交信息规范
 
