@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.turbo/
+.pnpm-store/
+apps/kairo-gallery/public/kairo-data.json
+*.log
+.claude/settings.local.json

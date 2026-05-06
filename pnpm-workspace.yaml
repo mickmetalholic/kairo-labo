@@ -1,0 +1,9 @@
+packages:
+  - "apps/*"
+
+catalog:
+  vite: 8.0.10
+
+onlyBuiltDependencies:
+  - esbuild
+  - simple-git-hooks

@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - "**"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Lint And Apps
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    env:
+      CI: true
+      DO_NOT_TRACK: 1
+      FORCE_COLOR: 1
+      TURBO_TELEMETRY_DISABLED: 1
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint Repository
+        run: pnpm lint
+
+      - name: Build Apps
+        run: pnpm apps:build
+
+      - name: Test Apps
+        run: pnpm apps:test

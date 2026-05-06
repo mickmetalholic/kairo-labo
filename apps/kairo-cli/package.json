@@ -1,0 +1,24 @@
+{
+  "name": "@kairo-labo/kairo-cli",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "bin": {
+    "kairo": "./src/cli.ts"
+  },
+  "scripts": {
+    "build": "tsc --noEmit -p tsconfig.json",
+    "start": "tsx ./src/cli.ts",
+    "test": "tsx ./src/cli.ts --help && tsx ./src/cli.ts list"
+  },
+  "dependencies": {
+    "@clack/prompts": "0.11.0",
+    "citty": "0.1.6",
+    "consola": "3.4.2",
+    "picocolors": "1.1.1",
+    "yocto-spinner": "1.0.0"
+  },
+  "devDependencies": {
+    "tsx": "4.21.0"
+  }
+}

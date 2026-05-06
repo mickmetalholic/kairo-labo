@@ -1,0 +1,46 @@
+{
+  "name": "kairo-labo",
+  "private": true,
+  "packageManager": "pnpm@10.33.2",
+  "engines": {
+    "node": ">=24.0.0",
+    "pnpm": ">=10.0.0"
+  },
+  "scripts": {
+    "sync:skills": "node ./scripts/sync-skills.mjs",
+    "postinstall": "pnpm sync:skills",
+    "check": "pnpm lint && pnpm apps:build && pnpm apps:test",
+    "dev": "pnpm gallery",
+    "kairo": "tsx ./apps/kairo-cli/src/cli.ts",
+    "gallery": "pnpm gallery:sync && turbo run dev --parallel --filter=@kairo-labo/kairo-server --filter=@kairo-labo/kairo-gallery",
+    "gallery:sync": "pnpm --filter @kairo-labo/kairo-gallery generate:data",
+    "commitlint": "commitlint",
+    "apps:build": "turbo run build --filter=@kairo-labo/kairo-*",
+    "apps:test": "turbo run test --filter=@kairo-labo/kairo-*",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "lint:staged": "lint-staged",
+    "prepare": "simple-git-hooks"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.2.3",
+    "@commitlint/cli": "19.8.1",
+    "@commitlint/config-conventional": "19.8.1",
+    "@types/node": "25.6.0",
+    "lint-staged": "16.1.2",
+    "simple-git-hooks": "2.13.1",
+    "tsx": "4.21.0",
+    "turbo": "2.9.7",
+    "typescript": "6.0.3"
+  },
+  "lint-staged": {
+    "**/*.{js,cjs,mjs,jsx,ts,tsx,json,jsonc,css,html}": "biome check --write"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint:staged",
+    "commit-msg": "pnpm commitlint --edit \"$1\""
+  },
+  "volta": {
+    "node": "24.14.0"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "description": "Explore several promise pool implementations and compare how each one schedules async work.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx ./src/index.ts",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "devDependencies": {
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.3"
+  }
+}

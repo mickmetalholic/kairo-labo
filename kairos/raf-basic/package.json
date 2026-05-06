@@ -1,0 +1,12 @@
+{
+  "description": "A tiny requestAnimationFrame playground for observing frame timing and animation state.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.4",
+    "vite": "8.0.10"
+  }
+}

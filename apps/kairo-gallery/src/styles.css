@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Bahnschrift", "Segoe UI Variable Display", sans-serif;
+  --font-mono: "Cascadia Code", "JetBrains Mono", monospace;
+}
+
+::selection {
+  background: rgb(66 217 238 / 0.28);
+  color: white;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+}

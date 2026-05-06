@@ -1,0 +1,13 @@
+{
+  "name": "@kairo-labo/kairo-core",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/kairo-metadata.ts"
+  },
+  "scripts": {
+    "build": "tsc --noEmit -p tsconfig.json",
+    "test": "tsc --noEmit -p tsconfig.json"
+  }
+}
