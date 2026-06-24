@@ -23,14 +23,14 @@
     "prepare": "simple-git-hooks"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.2.3",
-    "@commitlint/cli": "19.8.1",
-    "@commitlint/config-conventional": "19.8.1",
+    "@biomejs/biome": "2.5.1",
+    "@commitlint/cli": "21.1.0",
+    "@commitlint/config-conventional": "21.1.0",
     "@types/node": "25.6.0",
-    "lint-staged": "16.1.2",
+    "lint-staged": "17.0.8",
     "simple-git-hooks": "2.13.1",
-    "tsx": "4.21.0",
-    "turbo": "2.9.7",
+    "tsx": "4.22.4",
+    "turbo": "2.9.18",
     "typescript": "6.0.3"
   },
   "lint-staged": {
