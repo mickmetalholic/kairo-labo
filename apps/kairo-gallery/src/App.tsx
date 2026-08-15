@@ -32,11 +32,7 @@ export function App(): React.ReactNode {
   const controller = useLocalController();
   const kairoData = useKairoData();
   const kairos =
-    kairoData.kairos.length > 0
-      ? kairoData.kairos
-      : controller.kairos.filter(
-          ({ kind, templateId }) => kind === 'frontend' || templateId === 'go',
-        );
+    kairoData.kairos.length > 0 ? kairoData.kairos : controller.kairos;
 
   return (
     <main className="min-h-screen select-none overflow-hidden bg-[#050b12] text-slate-100">

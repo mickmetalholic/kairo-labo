@@ -4,9 +4,7 @@ import { getKairoMetadata, repoRoot } from '@kairo-labo/kairo-core';
 
 const outputPath = join(repoRoot, 'apps/kairo-gallery/public/kairo-data.json');
 
-const kairos = (await getKairoMetadata()).filter(
-  ({ kind, templateId }) => kind === 'frontend' || templateId === 'go',
-);
+const kairos = await getKairoMetadata();
 const nextContent = renderKairoData(kairos);
 const currentContent = await readFile(outputPath, 'utf8').catch(() => '');
 
