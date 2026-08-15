@@ -29,6 +29,7 @@ Requirements:
 
 - Node.js 24+
 - pnpm 10+
+- Go 1.22+ for Go kairos
 
 Open the interactive CLI:
 
@@ -62,13 +63,18 @@ Create a kairo directly:
 ```bash
 pnpm kairo new raf-basic
 pnpm kairo raf-basic
+pnpm kairo new go-basics --template go
 ```
 
 Run an existing kairo:
 
 ```bash
 pnpm kairo run raf-basic
+pnpm kairo run go-basics
 ```
+
+Go kairos are standalone Go modules. The CLI runs them with `go run .`, and
+their tests can be checked directly with `go test ./...`.
 
 ## 🖼️ Gallery Mode
 

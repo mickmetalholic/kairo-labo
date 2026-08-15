@@ -40,15 +40,23 @@ export function printKairoSummary(
   );
 }
 
-export function printNextSteps(outputDir: string, kairoName: string): void {
+export function printNextSteps(
+  outputDir: string,
+  kairoName: string,
+  templateId?: string,
+): void {
+  const runSteps =
+    templateId === 'go'
+      ? [pc.cyan('go run .'), pc.cyan('go test ./...')]
+      : [pc.cyan('pnpm install'), pc.cyan('pnpm dev')];
+
   logger.log(pc.dim('Scaffold complete.'));
   note(
     [
       pc.bold('Next steps'),
       '',
       pc.cyan(`cd ${relative(process.cwd(), outputDir)}`),
-      pc.cyan('pnpm install'),
-      pc.cyan('pnpm dev'),
+      ...runSteps,
       '',
       pc.dim('Or from the repo root:'),
       pc.cyan(`pnpm kairo run ${kairoName}`),

@@ -39,8 +39,5 @@
   "simple-git-hooks": {
     "pre-commit": "pnpm lint:staged",
     "commit-msg": "pnpm commitlint --edit \"$1\""
-  },
-  "volta": {
-    "node": "24.14.0"
   }
 }

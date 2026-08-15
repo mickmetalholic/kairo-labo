@@ -1,10 +1,11 @@
+import { existsSync } from 'node:fs';
 import { readdir, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 export type KairoKind = 'command' | 'frontend';
-export type KairoTemplateId = 'frontend-typescript' | 'typescript';
-export type KairoTemplateLabel = 'Frontend (TypeScript)' | 'TypeScript';
+export type KairoTemplateId = 'frontend-typescript' | 'typescript' | 'go';
+export type KairoTemplateLabel = 'Frontend (TypeScript)' | 'TypeScript' | 'Go';
 
 interface KairoPackageJson {
   dependencies?: Record<string, string>;
@@ -46,18 +47,19 @@ async function createKairo(id: string): Promise<KairoMetadata> {
   const manifest = await readKairoManifest(id);
 
   const kind = isFrontendKairo(manifest) ? 'frontend' : 'command';
+  const templateId = resolveKairoTemplateId(folderPath, kind);
 
   return {
     description: normalizeDescription(manifest.description),
     id,
     kind,
     paths: {
-      entry: resolveKairoEntry(folderPath, kind),
+      entry: resolveKairoEntry(folderPath, kind, templateId),
       folder: folderPath,
     },
     runCommand: `pnpm kairo run ${id}`,
-    templateId: resolveKairoTemplateId(kind),
-    templateLabel: resolveKairoTemplateLabel(kind),
+    templateId,
+    templateLabel: resolveKairoTemplateLabel(templateId),
   };
 }
 
@@ -69,16 +71,37 @@ function normalizeDescription(
   return trimmedDescription ? trimmedDescription : undefined;
 }
 
-function resolveKairoEntry(folderPath: string, kind: KairoKind): string {
+function resolveKairoEntry(
+  folderPath: string,
+  kind: KairoKind,
+  templateId: KairoTemplateId,
+): string {
+  if (templateId === 'go') {
+    return join(folderPath, 'main.go');
+  }
+
   return join(folderPath, 'src', kind === 'frontend' ? 'main.ts' : 'index.ts');
 }
 
-function resolveKairoTemplateId(kind: KairoKind): KairoTemplateId {
-  return kind === 'frontend' ? 'frontend-typescript' : 'typescript';
+function resolveKairoTemplateId(
+  folderPath: string,
+  kind: KairoKind,
+): KairoTemplateId {
+  if (kind === 'frontend') {
+    return 'frontend-typescript';
+  }
+
+  return existsSync(join(folderPath, 'go.mod')) ? 'go' : 'typescript';
 }
 
-function resolveKairoTemplateLabel(kind: KairoKind): KairoTemplateLabel {
-  return kind === 'frontend' ? 'Frontend (TypeScript)' : 'TypeScript';
+function resolveKairoTemplateLabel(
+  templateId: KairoTemplateId,
+): KairoTemplateLabel {
+  if (templateId === 'frontend-typescript') {
+    return 'Frontend (TypeScript)';
+  }
+
+  return templateId === 'go' ? 'Go' : 'TypeScript';
 }
 
 async function readKairoManifest(id: string): Promise<KairoPackageJson> {

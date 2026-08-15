@@ -1,6 +1,6 @@
 export type KairoKind = 'command' | 'frontend';
-export type KairoTemplateId = 'frontend-typescript' | 'typescript';
-export type KairoTemplateLabel = 'Frontend (TypeScript)' | 'TypeScript';
+export type KairoTemplateId = 'frontend-typescript' | 'typescript' | 'go';
+export type KairoTemplateLabel = 'Frontend (TypeScript)' | 'TypeScript' | 'Go';
 
 export interface KairoItem {
   description?: string;

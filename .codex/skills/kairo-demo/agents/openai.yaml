@@ -1,0 +1,4 @@
+interface:
+  display_name: "Kairo Demo"
+  short_description: "Design, create, and run small kairo learning demos."
+  default_prompt: "Use kairo-demo to design or create a small runnable kairo for this concept."

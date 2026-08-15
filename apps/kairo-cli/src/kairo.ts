@@ -86,7 +86,7 @@ export async function createKairo(options: CreateKairoOptions): Promise<void> {
     throw error;
   }
 
-  printNextSteps(outputDir, kairoName);
+  printNextSteps(outputDir, kairoName, templateId);
 }
 
 export async function runKairo(options: RunKairoOptions): Promise<void> {
@@ -97,13 +97,20 @@ export async function runKairo(options: RunKairoOptions): Promise<void> {
   validateKairoName(kairoName);
 
   const outputDir = resolve(options.targetDir, kairoName);
-  const packageJsonPath = join(outputDir, 'package.json');
 
   if (!pathExists(outputDir)) {
     throw new Error(
       `Kairo directory was not found: ${relative(process.cwd(), outputDir)}`,
     );
   }
+
+  if (pathExists(join(outputDir, 'go.mod'))) {
+    logger.success(`Starting ${pc.bold(kairoName)}...`);
+    await runProcess(['go', 'run', '.'], outputDir);
+    return;
+  }
+
+  const packageJsonPath = join(outputDir, 'package.json');
 
   if (!pathExists(packageJsonPath)) {
     throw new Error(

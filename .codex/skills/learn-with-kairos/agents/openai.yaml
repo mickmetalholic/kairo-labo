@@ -1,0 +1,4 @@
+interface:
+  display_name: "Learn With Kairos"
+  short_description: "Use kairo-labo demos to learn technical concepts."
+  default_prompt: "Use learn-with-kairos to answer my technical question through existing or new kairo demos."

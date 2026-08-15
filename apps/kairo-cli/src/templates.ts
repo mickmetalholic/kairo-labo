@@ -22,6 +22,12 @@ export const templates: TemplateDefinition[] = [
       'Standalone Node + TypeScript starter for command and algorithm kairos.',
     sourceDir: 'typescript',
   },
+  {
+    id: 'go',
+    label: 'Go',
+    description: 'Standalone Go module starter for terminal-driven kairos.',
+    sourceDir: 'go',
+  },
 ];
 
 export function getTemplate(id: string): TemplateDefinition | undefined {
