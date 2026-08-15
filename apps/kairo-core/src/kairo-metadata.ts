@@ -48,9 +48,12 @@ async function createKairo(id: string): Promise<KairoMetadata> {
 
   const kind = isFrontendKairo(manifest) ? 'frontend' : 'command';
   const templateId = resolveKairoTemplateId(folderPath, kind);
+  const description = normalizeDescription(
+    manifest.description ?? (await readKairoReadmeDescription(folderPath)),
+  );
 
   return {
-    description: normalizeDescription(manifest.description),
+    description,
     id,
     kind,
     paths: {
@@ -113,6 +116,30 @@ async function readKairoManifest(id: string): Promise<KairoPackageJson> {
   } catch {
     return {};
   }
+}
+
+async function readKairoReadmeDescription(
+  folderPath: string,
+): Promise<string | undefined> {
+  const readme = await readFile(join(folderPath, 'README.md'), 'utf8').catch(
+    () => '',
+  );
+  const descriptionBlock = readme
+    .split(/\r?\n\s*\r?\n/)
+    .map((block) => block.trim())
+    .find((block) => {
+      const firstLine = block.split(/\r?\n/, 1)[0] ?? '';
+
+      return (
+        block.length > 0 &&
+        !firstLine.startsWith('#') &&
+        !firstLine.startsWith('```') &&
+        !firstLine.startsWith('-') &&
+        !/^\d+\./.test(firstLine)
+      );
+    });
+
+  return descriptionBlock?.replaceAll(/\s+/g, ' ');
 }
 
 function isFrontendKairo(manifest: KairoPackageJson): boolean {

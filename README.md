@@ -80,6 +80,9 @@ their tests can be checked directly with `go test ./...`.
 
 `pnpm gallery` runs the same local pipeline as `pnpm dev`.
 
+The Gallery lists frontend kairos with browser previews. Command kairos remain
+available through their own toolchains and the root CLI.
+
 Locally, Turbo starts the standalone kairo server and the Vite gallery together.
 The server can:
 

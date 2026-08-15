@@ -1,4 +1,0 @@
-interface:
-  display_name: "Kairo Research"
-  short_description: "Find docs and sources for kairo learning questions."
-  default_prompt: "Use kairo-research to check official docs and current sources before teaching this concept."

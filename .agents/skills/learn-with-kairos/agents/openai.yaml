@@ -1,0 +1,4 @@
+interface:
+  display_name: "Learn With Kairos"
+  short_description: "Learn with local kairos and official docs."
+  default_prompt: "Use $learn-with-kairos to learn through local kairos and official docs when needed."

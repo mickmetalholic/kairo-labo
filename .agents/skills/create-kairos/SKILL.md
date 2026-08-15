@@ -1,9 +1,9 @@
 ---
-name: kairo-demo
-description: Use inside kairo-labo when Codex needs to design, scaffold, create, run, inspect, modify, or polish a small standalone kairo demo under kairos/* using the repo CLI, templates, and gallery workflow.
+name: create-kairos
+description: Use inside kairo-labo when Codex needs to design, scaffold, create, run, inspect, modify, or polish a small standalone kairo under kairos/* using the repo CLI, templates, and gallery workflow.
 ---
 
-# Kairo Demo
+# Create Kairos
 
 Create small, polished, inspectable learning demos. A kairo should answer one
 question well enough that the user can study it later.
@@ -60,7 +60,7 @@ Ask for confirmation before creating the kairo when the user is still exploring.
 6. Run the demo or the smallest relevant verification.
 7. Explain how to observe the behavior.
 
-## Existing Demo Workflow
+## Existing Kairo Workflow
 
 When using an existing kairo:
 

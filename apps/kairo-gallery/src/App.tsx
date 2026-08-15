@@ -15,12 +15,13 @@ import {
   TerminalSquare,
 } from 'lucide-react';
 import { useState } from 'react';
+import { type SimpleIcon, siGo, siTypescript, siVite } from 'simple-icons';
 import logoDarkUrl from '../../../assets/logo-dark.png';
 import { Badge } from './components/ui/badge';
 import { Button } from './components/ui/button';
 import { Card } from './components/ui/card';
 import { getLogseqUrl } from './kairo-links';
-import type { KairoItem } from './types';
+import type { KairoItem, KairoTemplateId } from './types';
 import { useKairoData } from './use-kairo-data';
 import {
   type LocalController,
@@ -31,7 +32,11 @@ export function App(): React.ReactNode {
   const controller = useLocalController();
   const kairoData = useKairoData();
   const kairos =
-    kairoData.kairos.length > 0 ? kairoData.kairos : controller.kairos;
+    kairoData.kairos.length > 0
+      ? kairoData.kairos
+      : controller.kairos.filter(
+          ({ kind, templateId }) => kind === 'frontend' || templateId === 'go',
+        );
 
   return (
     <main className="min-h-screen select-none overflow-hidden bg-[#050b12] text-slate-100">
@@ -226,20 +231,38 @@ interface TemplateLabelProps {
   kairo: KairoItem;
 }
 
+const templateIcons: Record<KairoTemplateId, SimpleIcon> = {
+  go: siGo,
+  'frontend-typescript': siVite,
+  typescript: siTypescript,
+};
+
+const templateDescriptions: Record<KairoTemplateId, string> = {
+  go: 'Go learning kairo with a terminal workflow.',
+  'frontend-typescript': 'Frontend kairo built with Vite.',
+  typescript: 'Command kairo built with TypeScript.',
+};
+
 function TemplateLabel({ kairo }: TemplateLabelProps): React.ReactNode {
-  const Icon = kairo.kind === 'frontend' ? MonitorPlay : TerminalSquare;
-  const description =
-    kairo.kind === 'frontend'
-      ? 'Frontend kairo with a local preview.'
-      : 'Command kairo for terminal-driven study.';
+  const icon = templateIcons[kairo.templateId];
+  const description = templateDescriptions[kairo.templateId];
 
   return (
     <span
       aria-label={kairo.templateLabel}
       className="group/template relative grid size-8 shrink-0 place-items-center rounded-full border border-[#42d9ee]/20 bg-[#42d9ee]/10 text-[#a8f4fb]"
       role="img"
+      style={{ color: `#${icon.hex}` }}
     >
-      <Icon className="size-4" />
+      <svg
+        aria-hidden="true"
+        className="size-4"
+        fill="currentColor"
+        role="presentation"
+        viewBox="0 0 24 24"
+      >
+        <path d={icon.path} />
+      </svg>
       <span className="pointer-events-none absolute right-0 top-10 z-20 w-56 rounded-xl border border-white/10 bg-[#07121b]/95 p-3 text-left opacity-0 shadow-2xl shadow-black/35 backdrop-blur transition duration-150 group-hover/template:translate-y-1 group-hover/template:opacity-100 group-focus-visible/template:translate-y-1 group-focus-visible/template:opacity-100">
         <span className="block font-mono text-xs font-semibold text-[#a8f4fb]">
           {kairo.templateLabel}
@@ -304,9 +327,9 @@ function KairoCard({ controller, kairo }: KairoCardProps): React.ReactNode {
                 isRunning={isRunning}
                 localKairo={localKairo}
               />
-            ) : (
+            ) : kairo.runCommand ? (
               <CommandKairoAction command={kairo.runCommand} />
-            )}
+            ) : null}
           </div>
           {canShowLocalTools && localKairo ? (
             <div className="grid gap-2 border-t border-white/10 pt-4 sm:grid-cols-2">
@@ -390,7 +413,9 @@ function FrontendKairoAction({
   }
 
   if (!isOnline || !localKairo) {
-    return <CommandKairoAction command={kairo.runCommand} />;
+    return kairo.runCommand ? (
+      <CommandKairoAction command={kairo.runCommand} />
+    ) : null;
   }
 
   const busyLabel = getBusyActionLabel(localKairo.status);

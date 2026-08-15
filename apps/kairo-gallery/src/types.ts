@@ -6,7 +6,7 @@ export interface KairoItem {
   description?: string;
   id: string;
   kind: KairoKind;
-  runCommand: string;
+  runCommand?: string;
   templateId: KairoTemplateId;
   templateLabel: KairoTemplateLabel;
 }

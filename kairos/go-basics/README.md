@@ -1,6 +1,6 @@
 # go-basics
 
-The first Go learning experiment in Kairo Labo.
+A small, testable study-plan program for learning Go fundamentals.
 
 ## Core question
 
