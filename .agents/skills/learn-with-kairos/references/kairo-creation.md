@@ -1,12 +1,7 @@
----
-name: create-kairos
-description: Use inside kairo-labo when Codex needs to design, scaffold, create, run, inspect, modify, or polish a small standalone kairo under kairos/* using the repo CLI, templates, and gallery workflow.
----
+# Kairo Creation Guide
 
-# Create Kairos
-
-Create small, polished, inspectable learning demos. A kairo should answer one
-question well enough that the user can study it later.
+Read this reference only when no existing kairo fits the learning goal or when
+the user explicitly asks to create, modify, run, inspect, or polish a kairo.
 
 ## Demo Constraints
 
@@ -19,9 +14,24 @@ question well enough that the user can study it later.
 - Avoid new dependencies unless the learning goal specifically requires them.
 - Keep core logic short enough to inspect in one sitting.
 
+## Compact Proposal
+
+Before changing files, announce:
+
+- Kairo name in lowercase hyphen-case.
+- Core question.
+- What the user will observe.
+- Template: `frontend-typescript` or `typescript`.
+- Files likely to change.
+- Run command.
+
+For a concrete learning request, this announcement is a preview rather than a
+second approval gate. Ask for confirmation only when the user's intent is still
+ambiguous or the change would expand beyond a small standalone experiment.
+
 ## Commands
 
-Use these from the repo root:
+Run these from the repo root:
 
 ```bash
 pnpm kairo list
@@ -34,24 +44,10 @@ pnpm gallery:sync
 Run `pnpm check` before handoff when feasible after code changes. For docs-only
 or skill-only changes, validation specific to those files is enough.
 
-## Design Before Creation
-
-Before creating files, present a compact demo proposal unless the user already
-gave a concrete implementation request:
-
-- Name: lowercase hyphen-case.
-- Core question: one sentence.
-- Observation: what the user should see or measure.
-- Template: `frontend-typescript` or `typescript`.
-- Files likely to change.
-- Run command.
-
-Ask for confirmation before creating the kairo when the user is still exploring.
-
 ## Creation Workflow
 
 1. Validate the name against existing kairos.
-2. Run `pnpm kairo new <name>` with the appropriate template options if
+2. Run `pnpm kairo new <name>` with the appropriate template option when
    available.
 3. Edit only the new kairo files unless the request requires shared tooling.
 4. Add UI only as needed to reveal the concept.
@@ -62,7 +58,7 @@ Ask for confirmation before creating the kairo when the user is still exploring.
 
 ## Existing Kairo Workflow
 
-When using an existing kairo:
+When modifying or studying an existing kairo:
 
 1. Read `package.json`, entry files, and any README first.
 2. Identify the core concept the demo currently proves.

@@ -1,6 +1,6 @@
 ---
 name: learn-with-kairos
-description: Use inside kairo-labo for technical learning questions, including local kairo walkthroughs, current or version-specific API behavior, official documentation lookup, source-grounded comparisons, debugging, and small runnable learning experiments.
+description: "Use inside kairo-labo as the single entry point for technical learning: find and use an existing local kairo when one fits, research official docs when needed, and design, create, run, inspect, modify, or polish the smallest standalone kairo when none exists."
 ---
 
 # Learn With Kairos
@@ -25,9 +25,12 @@ question to a concrete, inspectable kairo whenever that helps the user learn.
    through that demo before giving broad theory.
 4. If the answer depends on current or exact API behavior, use the research
    workflow below before finalizing the teaching.
-5. If no useful kairo exists, propose a tiny new kairo. Ask before creating
-   files unless the user explicitly asked for implementation.
-6. If creating or changing a demo, use `create-kairos` style constraints.
+5. If no suitable kairo exists, read `references/kairo-creation.md` and use it
+   to make the smallest useful one. For a concrete request to learn a topic,
+   announce the compact proposal and create it without waiting for a second
+   skill invocation.
+6. If creating or changing a demo, apply the constraints and workflow in that
+   reference; do not load it for ordinary learning or research questions.
 7. End with observation tasks or self-check questions when the user is learning,
    not just requesting a factual answer.
 
@@ -131,24 +134,35 @@ After documenting the fact, return it to a local observation:
 - propose a tiny demo if none exists;
 - suggest one focused code change that would reveal the behavior.
 
-## When To Create A Kairo
+## Kairo Selection And Creation
 
-Create or modify a kairo when:
+### Select An Existing Kairo First
 
-- the user explicitly asks for a demo or experiment;
-- no existing kairo can make the concept concrete;
-- a tiny runnable example would teach better than another explanation.
+Treat a kairo as a match only when it makes the user's core question directly
+observable. Use an existing kairo when:
 
-Before creation, propose:
+- its main concept is the same question the user wants to learn;
+- its current behavior can demonstrate the requested point; and
+- its source is small enough to inspect without unrelated complexity.
 
-- Kairo name.
-- Core question.
-- What the user will observe.
-- Files likely to change.
-- Run command.
+If a kairo is related but only partially useful, use it for the covered part,
+state the gap, and avoid creating a duplicate. Extend it only when the change
+keeps one core concept; otherwise create a separate kairo.
 
-Keep one core concept per kairo. If the topic is broad, split it into a first
-small experiment and optional follow-up kairos.
+### When Creation Is Needed
+
+Create or modify a kairo when the user explicitly asks for a demo or experiment,
+no existing kairo can make the concept concrete, or a tiny runnable example
+would teach better than another explanation. Read
+[`references/kairo-creation.md`](references/kairo-creation.md) only at that
+point.
+
+For a concrete learning request such as “学一下 X”, “带我理解 X”, or “做个
+实验看 X”, treat the request as authorization to create when no suitable kairo
+exists. Announce the compact proposal from the reference before changing files;
+this is a preview, not a second approval gate. If the user is only asking for a
+factual answer or an explanation of existing source, do not create a kairo
+unless they ask for an experiment or demo.
 
 ## Learning Posture
 

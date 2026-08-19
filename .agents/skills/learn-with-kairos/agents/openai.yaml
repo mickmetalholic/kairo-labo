@@ -1,4 +1,4 @@
 interface:
   display_name: "Learn With Kairos"
-  short_description: "Learn with local kairos and official docs."
-  default_prompt: "Use $learn-with-kairos to learn through local kairos and official docs when needed."
+  short_description: "Find or build the right runnable kairo to learn."
+  default_prompt: "Use $learn-with-kairos to find an existing kairo or build the smallest one for this topic."

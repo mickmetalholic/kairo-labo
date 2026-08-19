@@ -1,4 +1,0 @@
-interface:
-  display_name: "Create Kairos"
-  short_description: "Design and evolve small runnable kairos."
-  default_prompt: "Use $create-kairos to design, create, modify, and run a standalone kairo."
